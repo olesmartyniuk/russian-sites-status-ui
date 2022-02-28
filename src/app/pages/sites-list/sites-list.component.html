@@ -1,10 +1,11 @@
-<div *ngIf="sitesNotFound">
-    <h1>Жодного сайту не знайдено</h1>
+<div *ngIf="isError">
+    <h1>Помилка серверу</h1>
+    <b>{{ error }}</b> 
+    <br><br>
+    <b>Перезавантажте сторінку</b>
 </div>
 
-<div *ngIf="!sitesNotFound" class="siteListComponent">
-    <h1>Рашистські сайти</h1>
-
+<div *ngIf="!isError" class="siteListComponent">
     <!-- https://material.angular.io/components/table/overview -->
     <table mat-table [dataSource]="sitesList">
         <ng-container matColumnDef="name">

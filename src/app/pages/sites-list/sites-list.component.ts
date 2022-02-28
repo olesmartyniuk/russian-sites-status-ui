@@ -5,7 +5,7 @@ import { Site } from 'src/app/models/site';
 import { Router } from '@angular/router';
 import { switchMap } from "rxjs/operators";
 import { timer } from "rxjs/observable/timer";
-import { Subscription } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'rss-sites-list',
@@ -17,10 +17,11 @@ export class SitesListComponent implements OnInit, OnDestroy {
   readonly checkStatusesIntervalInMs = 30000;
 
   public sitesList: Site[] = [];
-  public sitesNotFound: boolean = false;
+  public isError: boolean = false;
+  public error: string = null;
   public displayedColumns: string[] = ['name', 'status', 'uptime'];
   
-  private getSitesSubscription: Subscription;
+  private getSitesSubscription: Subscription;  
 
   constructor(
     public visual: VisualService,    
@@ -34,6 +35,12 @@ export class SitesListComponent implements OnInit, OnDestroy {
       this.getSitesSubscription = getSites$.subscribe(
         (result: Site[]) => {
           this.sitesList = result;
+        },
+        (error) => {
+          console.error(error);
+          this.getSitesSubscription.unsubscribe();
+          this.error = error.message;          
+          this.isError = true;
         });
   }
 

@@ -18,6 +18,8 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   readonly checkStatusesIntervalInMs = 30000;
 
   public site: SiteDetails;
+  public isError: boolean = false;
+  public error: string = null;
   public displayedColumns: string[] = ['description', 'region', 'status'];
 
   private getSiteDetailsSubscription: Subscription;
@@ -31,13 +33,19 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const siteId = this.route.snapshot.paramMap.get('siteId');
-    
+
     const getSites$ = timer(0, this.checkStatusesIntervalInMs)
       .pipe(switchMap(_ => this.apiService.siteDetails(siteId)));
 
     this.getSiteDetailsSubscription = getSites$.subscribe(
       (result: SiteDetails) => {
         this.site = result;
+      },
+      (error) => {
+        console.error(error);
+        this.getSiteDetailsSubscription.unsubscribe();
+        this.error = error.message;
+        this.isError = true;
       });
   }
 

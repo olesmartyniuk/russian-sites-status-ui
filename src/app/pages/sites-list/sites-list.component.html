@@ -1,12 +1,32 @@
 <div *ngIf="sitesNotFound">
-    <h1>Жодного сайту не знайдено</h1>    
+    <h1>Жодного сайту не знайдено</h1>
 </div>
 
-<div *ngIf="!sitesNotFound">
+<div *ngIf="!sitesNotFound" class="siteListComponent">
     <h1>Рашистські сайти</h1>
-    <div class="sites">
-        <div *ngFor="let site of sitesList">
-            <rss-sites-list-item [site]='site'></rss-sites-list-item>
-        </div>
-    </div>
+
+    <!-- https://material.angular.io/components/table/overview -->
+    <table mat-table [dataSource]="sitesList" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Name </th>
+            <td mat-cell *matCellDef="let element">
+                <a [routerLink]="['/site', element.id]">
+                    {{ element.name }}
+                </a>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="uptime">
+            <th mat-header-cell *matHeaderCellDef> Uptime </th>
+            <td mat-cell *matCellDef="let element"> {{element.uptime}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
 </div>

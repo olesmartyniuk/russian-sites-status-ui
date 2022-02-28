@@ -1,0 +1,14 @@
+.siteListComponent
+{
+    margin-bottom: 20px;
+}
+
+.siteListComponent table
+{
+ width: 100%;
+}
+
+.siteListComponent table th
+{
+    font-weight: bold;
+}

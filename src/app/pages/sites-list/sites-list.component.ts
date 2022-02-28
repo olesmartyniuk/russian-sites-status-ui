@@ -11,6 +11,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   public sitesList: Site[] = [];
   public sitesNotFound: boolean = false;
+  public displayedColumns: string[] = ['name', 'status', 'uptime'];
 
   constructor(private apiService: ApiService) { }
 

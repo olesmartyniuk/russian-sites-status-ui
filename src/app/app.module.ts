@@ -10,8 +10,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AppInitService } from './services/app-init.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MatTableModule } from '@angular/material/table'  
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
-import { SitesListItemComponent } from './pages/sites-list-item/sites-list-item.component';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -28,7 +28,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     SitesListComponent,
-    SitesListItemComponent,
     NotFoundComponent,
     SiteDetailsComponent,
   ],
@@ -42,6 +41,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),        
     NgbModule,
     HttpClientModule,    
+    MatTableModule,
   ],
   providers: [
     {

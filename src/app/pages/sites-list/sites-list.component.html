@@ -1,0 +1,12 @@
+<div *ngIf="sitesNotFound">
+    <h1>Жодного сайту не знайдено</h1>    
+</div>
+
+<div *ngIf="!sitesNotFound">
+    <h1>Рашистські сайти</h1>
+    <div class="sites">
+        <div *ngFor="let site of sitesList">
+            <rss-sites-list-item [site]='site'></rss-sites-list-item>
+        </div>
+    </div>
+</div>

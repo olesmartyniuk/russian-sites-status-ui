@@ -1,0 +1,16 @@
+<div class="site">
+
+    <div class="site-name">
+        <a [routerLink]="['/site', site.id]">
+            {{ site.name }}
+        </a>
+    </div>
+
+    <div class="site-status">
+        Status: {{ site.status }}
+    </div>
+
+    <div class="site-uptime">
+        Uptime: {{ site.uptime }}
+    </div>    
+</div>

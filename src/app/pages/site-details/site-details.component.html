@@ -1,0 +1,33 @@
+<div class="site">
+
+    <div class="site-name">
+        {{ site.name }}
+    </div>
+
+    <div class="site-status">
+        Status: {{ site.status }}
+    </div>
+
+    <div class="site-uptime">
+        Uptime: {{ site.uptime }}
+    </div>
+
+    <h3>Сервери</h3>
+    <div class="servers">
+        <div *ngFor="let server of site.servers">
+            <div>
+                {{ server.description }}
+            </div>
+            <div>
+                Region: {{ server.region }}
+            </div>
+            <div>
+                Status: {{ server.status }}
+            </div>
+            <div>
+                IP: {{ server.ipv4 }}
+            </div>
+        </div>
+    </div>
+
+</div>

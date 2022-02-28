@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
+import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'rss-sites-list',
@@ -13,12 +15,20 @@ export class SitesListComponent implements OnInit, OnDestroy {
   public sitesNotFound: boolean = false;
   public displayedColumns: string[] = ['name', 'status', 'uptime'];
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    public visual: VisualService,    
+    private apiService: ApiService, 
+    private router: Router,) { }
 
   async ngOnInit() {
     this.sitesList = await this.apiService.allSites();
   }
 
   ngOnDestroy() {
+  }
+
+  public selectItem(row: Site) {
+    this.router.navigate(['/site', row.id]);
+    console.log('row', row);
   }
 }

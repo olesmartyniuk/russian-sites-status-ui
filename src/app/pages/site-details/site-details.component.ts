@@ -4,6 +4,9 @@ import { VisualService } from 'src/app/services/visual.service';
 import { SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
+import { switchMap } from "rxjs/operators";
+import { timer } from "rxjs/observable/timer";
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'rss-site-details',
@@ -12,8 +15,12 @@ import { Location } from '@angular/common'
 })
 export class SiteDetailsComponent implements OnInit, OnDestroy {
 
+  readonly checkStatusesIntervalInMs = 30000;
+
   public site: SiteDetails;
   public displayedColumns: string[] = ['description', 'region', 'status'];
+
+  private getSiteDetailsSubscription: Subscription;
 
   constructor(
     public visual: VisualService,
@@ -24,10 +31,18 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     const siteId = this.route.snapshot.paramMap.get('siteId');
-    this.site = await this.apiService.siteDetails(siteId);
+    
+    const getSites$ = timer(0, this.checkStatusesIntervalInMs)
+      .pipe(switchMap(_ => this.apiService.siteDetails(siteId)));
+
+    this.getSiteDetailsSubscription = getSites$.subscribe(
+      (result: SiteDetails) => {
+        this.site = result;
+      });
   }
 
   ngOnDestroy() {
+    this.getSiteDetailsSubscription.unsubscribe();
   }
 
   public back = () => {

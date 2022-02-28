@@ -10,7 +10,11 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { AppInitService } from './services/app-init.service';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MatTableModule } from '@angular/material/table'  
+import { MatTableModule } from '@angular/material/table'
+import { MatCardModule } from '@angular/material/card';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatButtonModule } from '@angular/material/button';
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 
 export function appInit(appInitService: AppInitService) {
@@ -19,7 +23,7 @@ export function appInit(appInitService: AppInitService) {
 
 const appRoutes: Routes = [
   { path: '', redirectTo: 'sites', pathMatch: 'full' },
-  { path: 'sites', component: SitesListComponent },  
+  { path: 'sites', component: SitesListComponent },
   { path: 'site/:siteId', component: SiteDetailsComponent },
   { path: '**', component: NotFoundComponent }
 ];
@@ -36,12 +40,16 @@ const appRoutes: Routes = [
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    ReactiveFormsModule,    
+    ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),        
+    RouterModule.forRoot(appRoutes),
     NgbModule,
-    HttpClientModule,    
+    HttpClientModule,
     MatTableModule,
+    MatCardModule,
+    MatBadgeModule,
+    MatChipsModule,
+    MatButtonModule
   ],
   providers: [
     {

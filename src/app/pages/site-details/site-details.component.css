@@ -1,0 +1,21 @@
+.site .serverListTable
+{
+width: 100%;
+}
+
+.site .mat-card
+{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    box-shadow: none;
+}
+
+.site .serverListTable th
+{
+font-weight: bold;
+}
+
+.site .mat-badge-content
+{
+    width: 45px;
+}

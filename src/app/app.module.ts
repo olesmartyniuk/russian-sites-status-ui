@@ -15,6 +15,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 
 export function appInit(appInitService: AppInitService) {
@@ -49,7 +50,8 @@ const appRoutes: Routes = [
     MatCardModule,
     MatBadgeModule,
     MatChipsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTooltipModule
   ],
   providers: [
     {

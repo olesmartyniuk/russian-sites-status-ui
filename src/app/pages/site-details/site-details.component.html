@@ -1,33 +1,63 @@
 <div class="site">
 
-    <div class="site-name">
-        {{ site.name }}
-    </div>
+    <mat-card class="description">
+        <mat-card-title>
+            <span class="{{ visual.getColorStyleForStatusBage(site.uptime) }}" matBadge="{{ site.status }}"
+                matBadgeOverlap="false">{{ site.name }} </span>
+        </mat-card-title>
+        <mat-card-content>
+            Uptime: {{ site.uptime }}%
 
-    <div class="site-status">
-        Status: {{ site.status }}
-    </div>
+            <mat-card>
+                <mat-card-title>
+                    Сервери
+                </mat-card-title>
 
-    <div class="site-uptime">
-        Uptime: {{ site.uptime }}
-    </div>
 
-    <h3>Сервери</h3>
-    <div class="servers">
-        <div *ngFor="let server of site.servers">
-            <div>
-                {{ server.description }}
-            </div>
-            <div>
-                Region: {{ server.region }}
-            </div>
-            <div>
-                Status: {{ server.status }}
-            </div>
-            <div>
-                IP: {{ server.ipv4 }}
-            </div>
-        </div>
-    </div>
+                <mat-card-content>
+
+                    <table mat-table [dataSource]="site.servers" class='serverListTable'>
+
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef>Description </th>
+                            <td mat-cell *matCellDef="let element">
+                                {{ element.description }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="region">
+                            <th mat-header-cell *matHeaderCellDef> Region </th>
+                            <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="status">
+
+
+                            <th mat-header-cell *matHeaderCellDef> Status </th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-chip-list cdkDropListOrientation="horizontal">
+                                    <div style="content: none;"
+                                        class="{{ visual.getColorStyleForStatusChip(element.status) }}">
+                                        <mat-chip>
+                                            {{element.status}}
+                                        </mat-chip>
+                                    </div>
+                                </mat-chip-list>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </mat-card-content>
+        <mat-card-footer>
+            <button color="primary" type="button" mat-button (click)="back()">
+                Return
+            </button>
+        </mat-card-footer>
+    </mat-card>
 
 </div>

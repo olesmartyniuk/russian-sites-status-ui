@@ -19,3 +19,8 @@ font-weight: bold;
 {
     width: 45px;
 }
+
+.site mat-chip
+{
+  width: 100px;
+}

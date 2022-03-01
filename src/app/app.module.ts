@@ -19,7 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -55,7 +54,6 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatButtonModule,
     MatTooltipModule,
-    Ng2SearchPipeModule,
     MatSortModule
   ],
   providers: [

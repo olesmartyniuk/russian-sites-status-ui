@@ -17,6 +17,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
+import { SiteFilter } from './pages/sites-list/sites-filter.pipe';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -35,6 +37,7 @@ const appRoutes: Routes = [
     SitesListComponent,
     NotFoundComponent,
     SiteDetailsComponent,
+    SiteFilter
   ],
   imports: [
     BrowserModule,
@@ -51,7 +54,8 @@ const appRoutes: Routes = [
     MatBadgeModule,
     MatChipsModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    Ng2SearchPipeModule
   ],
   providers: [
     {
@@ -62,6 +66,6 @@ const appRoutes: Routes = [
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [],
+  entryComponents: []
 })
 export class AppModule { }

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class SitesListComponent implements OnInit, OnDestroy {
 
   readonly checkStatusesIntervalInMs = 30000;
-
+  public searchText: string = "";
   public sitesList: Site[] = [];
   public isError: boolean = false;
   public error: string = null;

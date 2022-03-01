@@ -6,8 +6,11 @@
 </div>
 
 <div *ngIf="!isError" class="siteListComponent">
+    <div class="search-site">
+        <input type="search" class="form-control" [(ngModel)]="searchText" autocomplete="off" placeholder="Searching by site name">
+    </div>
     <!-- https://material.angular.io/components/table/overview -->
-    <table mat-table [dataSource]="sitesList">
+    <table mat-table [dataSource]="sitesList | siteFilter:searchText:['name']" matSort>
         <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef> Name </th>
             <td mat-cell *matCellDef="let element" class="siteName">

@@ -58,7 +58,7 @@
                 <ng-container matColumnDef="lastTestedAt">
                     <th mat-header-cell *matHeaderCellDef> Checked </th>
                     <td mat-cell *matCellDef="let element">
-                        {{element.lastTestedAt}}
+                        {{getReadableTime(element.lastTestedAt)}}
                     </td>
                 </ng-container>
 

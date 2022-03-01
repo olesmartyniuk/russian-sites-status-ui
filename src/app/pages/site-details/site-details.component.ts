@@ -4,6 +4,8 @@ import { VisualService } from 'src/app/services/visual.service';
 import { SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
+import {Moment} from "moment";
+import * as moment from 'moment';
 
 @Component({
   selector: 'rss-site-details',
@@ -17,7 +19,7 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   public site: SiteDetails;
   public isError: boolean = false;
   public error: string = null;
-  public displayedColumns: string[] = ['description', 'region', 'status'];
+  public displayedColumns: string[] = [ 'region', 'status', 'lastTestedAt'];
 
   private interval: any;
   private siteId: string;
@@ -42,6 +44,10 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
 
   public back = () => {
     this.location.back();
+  }
+
+  public getReadableTime = (lastDate)=>{
+    return moment(lastDate).fromNow();
   }
 
   private startTimer() {

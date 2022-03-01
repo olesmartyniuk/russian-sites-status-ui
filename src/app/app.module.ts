@@ -20,6 +20,7 @@ import { MatSortModule } from '@angular/material/sort';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'sites', pathMatch: 'full' },
   { path: 'sites', component: SitesListComponent },
   { path: 'site/:siteId', component: SiteDetailsComponent },
+  { path: 'about', component: AboutComponent },  
   { path: '**', component: NotFoundComponent }
 ];
 

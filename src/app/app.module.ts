@@ -16,6 +16,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
+
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 
 export function appInit(appInitService: AppInitService) {
@@ -51,7 +53,8 @@ const appRoutes: Routes = [
     MatBadgeModule,
     MatChipsModule,
     MatButtonModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSortModule
   ],
   providers: [
     {

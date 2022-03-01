@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
 import { Router } from '@angular/router';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'rss-sites-list',
@@ -13,11 +15,11 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   readonly checkStatusesIntervalInMs = 30000;
 
-  public sitesList: Site[] = [];
+  public sitesList = new MatTableDataSource([] as Site[]);
   public isError: boolean = false;
   public error: string = null;
   public displayedColumns: string[] = ['name', 'status', 'uptime'];
-
+  
   private interval: any;
 
   constructor(
@@ -34,9 +36,14 @@ export class SitesListComponent implements OnInit, OnDestroy {
     this.pauseTimer();
   }
 
+  @ViewChild(MatSort) sort: MatSort;
+
+  ngAfterViewInit() {
+    this.sitesList.sort = this.sort;
+  }
+
   public selectItem(row: Site) {
     this.router.navigate(['/site', row.id]);
-    console.log('row', row);
   }
 
   private startTimer() {
@@ -47,7 +54,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   private async updateSites() {
     try {
-      this.sitesList = await this.apiService.allSites();
+      this.sitesList.data = await this.apiService.allSites();
     }
     catch (error) {
       console.error(error);

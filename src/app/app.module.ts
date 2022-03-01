@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     AppComponent,
     SitesListComponent,
     NotFoundComponent,
-    SiteDetailsComponent,
+    SiteDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +69,6 @@ const appRoutes: Routes = [
     }
   ],
   bootstrap: [AppComponent],
-  entryComponents: [],
+  entryComponents: []
 })
 export class AppModule { }

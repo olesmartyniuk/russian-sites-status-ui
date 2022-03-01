@@ -1,11 +1,14 @@
 <div *ngIf="isError">
     <h1>Помилка серверу</h1>
-    <b>{{ error }}</b> 
+    <b>{{ error }}</b>
     <br><br>
     <b>Перезавантажте сторінку</b>
 </div>
 
 <div *ngIf="!isError" class="siteListComponent">
+    <div class="search-site">
+      <input type="search" class="form-control" (keyup)="applyFilter($event)" placeholder="Search by site name">
+    </div>
     <!-- https://material.angular.io/components/table/overview -->
     <table mat-table matSort [dataSource]="sitesList">
         <ng-container matColumnDef="name">

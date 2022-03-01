@@ -1,4 +1,11 @@
-<div class="site">
+<div *ngIf="isError">
+    <h1>Помилка серверу</h1>
+    <b>{{ error }}</b> 
+    <br><br>
+    <b>Перезавантажте сторінку</b>
+</div>
+
+<div *ngIf="!isError" class="site">
     <mat-card class="description" *ngIf="site">
         <mat-card-title>
             <span class="{{ visual.getColorStyleForStatusChip(site.status) }}" matBadge="{{ site.status }}"

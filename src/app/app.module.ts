@@ -17,6 +17,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 
@@ -54,7 +55,8 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatButtonModule,
     MatTooltipModule,
-    MatSortModule
+    MatSortModule,
+    MatGridListModule
   ],
   providers: [
     {

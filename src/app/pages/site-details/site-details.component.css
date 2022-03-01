@@ -20,7 +20,21 @@ font-weight: bold;
     width: 45px;
 }
 
-.site mat-chip
+.site .backButton
 {
-  width: 100px;
+    float: right;
+    margin-top: -40px;
+    width: 120px;
+}
+
+.site .titleCard a
+{
+    margin-left: 15px;
+}
+
+.site .titleCard mat-chip
+{
+    margin-left: 10px;
+    width: 50px;
+    justify-content: center;
 }

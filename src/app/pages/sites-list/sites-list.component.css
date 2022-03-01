@@ -31,3 +31,10 @@
   display: flex;
   justify-content: center;
 }
+
+.search-site
+{
+ width: 30%;
+ margin-left: auto; 
+ margin-right: 0; 
+}

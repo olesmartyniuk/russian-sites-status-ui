@@ -4,9 +4,6 @@ import { VisualService } from 'src/app/services/visual.service';
 import { SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
-import { switchMap } from "rxjs/operators";
-import { timer } from "rxjs/observable/timer";
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'rss-site-details',
@@ -22,7 +19,8 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   public error: string = null;
   public displayedColumns: string[] = ['description', 'region', 'status'];
 
-  private getSiteDetailsSubscription: Subscription;
+  private interval: any;
+  private siteId: string;
 
   constructor(
     public visual: VisualService,
@@ -32,30 +30,39 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   async ngOnInit() {
-    const siteId = this.route.snapshot.paramMap.get('siteId');
+    this.siteId = this.route.snapshot.paramMap.get('siteId');
 
-    const getSites$ = timer(0, this.checkStatusesIntervalInMs)
-      .pipe(switchMap(_ => this.apiService.siteDetails(siteId)));
-
-    this.getSiteDetailsSubscription = getSites$.subscribe(
-      (result: SiteDetails) => {
-        this.site = result;
-      },
-      (error) => {
-        console.error(error);
-        this.getSiteDetailsSubscription.unsubscribe();
-        this.error = error.message;
-        this.isError = true;
-      });
+    await this.updateSiteInfo();
+    this.startTimer();
   }
 
   ngOnDestroy() {
-    this.getSiteDetailsSubscription.unsubscribe();
+    this.pauseTimer();
   }
 
   public back = () => {
     this.location.back();
   }
 
+  private startTimer() {
+    this.interval = setInterval(async () => {
+      await this.updateSiteInfo();
+    }, this.checkStatusesIntervalInMs)
+  }
 
+  private pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  private async updateSiteInfo() {
+    try {
+      this.site = await this.apiService.siteDetails(this.siteId);
+    }
+    catch (error) {
+      console.error(error);
+      this.pauseTimer();
+      this.error = error.message;
+      this.isError = true;
+    }
+  }
 }

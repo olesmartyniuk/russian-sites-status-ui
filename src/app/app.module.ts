@@ -19,7 +19,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
 
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
-import { SiteFilter } from './pages/sites-list/sites-filter.pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 export function appInit(appInitService: AppInitService) {
@@ -38,8 +37,7 @@ const appRoutes: Routes = [
     AppComponent,
     SitesListComponent,
     NotFoundComponent,
-    SiteDetailsComponent,
-    SiteFilter
+    SiteDetailsComponent
   ],
   imports: [
     BrowserModule,

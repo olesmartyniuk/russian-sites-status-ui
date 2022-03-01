@@ -14,12 +14,11 @@ import {MatTableDataSource} from '@angular/material/table';
 export class SitesListComponent implements OnInit, OnDestroy {
 
   readonly checkStatusesIntervalInMs = 30000;
-  public searchText: string = "";
   public sitesList = new MatTableDataSource([] as Site[]);
   public isError: boolean = false;
   public error: string = null;
   public displayedColumns: string[] = ['name', 'status', 'uptime'];
-  
+
   private interval: any;
 
   constructor(
@@ -30,6 +29,9 @@ export class SitesListComponent implements OnInit, OnDestroy {
   async ngOnInit() {
     await this.updateSites();
     this.startTimer();
+    this.sitesList.filterPredicate = function(data, filter: string): boolean {
+      return data.name.toString().toLowerCase().includes(filter)
+    };
   }
 
   ngOnDestroy() {
@@ -66,5 +68,13 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   private pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  applyFilter(filterValue: any) {
+    let value = filterValue.target.value
+    if(!value || value.length < 2)
+      this.sitesList.filter = "";
+    else
+      this.sitesList.filter = filterValue.target.value.trim().toLowerCase();
   }
 }

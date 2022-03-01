@@ -16,6 +16,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSortModule } from '@angular/material/sort';
+
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 import { SiteFilter } from './pages/sites-list/sites-filter.pipe';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -55,7 +57,8 @@ const appRoutes: Routes = [
     MatChipsModule,
     MatButtonModule,
     MatTooltipModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    MatSortModule
   ],
   providers: [
     {

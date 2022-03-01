@@ -3,9 +3,6 @@ import { ApiService } from 'src/app/services/api.service';
 import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
 import { Router } from '@angular/router';
-import { switchMap } from "rxjs/operators";
-import { timer } from "rxjs/observable/timer";
-import { of, Subscription } from 'rxjs';
 
 @Component({
   selector: 'rss-sites-list',
@@ -20,36 +17,47 @@ export class SitesListComponent implements OnInit, OnDestroy {
   public isError: boolean = false;
   public error: string = null;
   public displayedColumns: string[] = ['name', 'status', 'uptime'];
-  
-  private getSitesSubscription: Subscription;  
+
+  private interval: any;
 
   constructor(
-    public visual: VisualService,    
-    private apiService: ApiService, 
+    public visual: VisualService,
+    private apiService: ApiService,
     private router: Router,) { }
 
-  async ngOnInit() {   
-    const getSites$ = timer(0, this.checkStatusesIntervalInMs)
-      .pipe(switchMap(_ => this.apiService.allSites()));
-
-      this.getSitesSubscription = getSites$.subscribe(
-        (result: Site[]) => {
-          this.sitesList = result;
-        },
-        (error) => {
-          console.error(error);
-          this.getSitesSubscription.unsubscribe();
-          this.error = error.message;          
-          this.isError = true;
-        });
+  async ngOnInit() {
+    await this.updateSites();
+    this.startTimer();
   }
 
   ngOnDestroy() {
-    this.getSitesSubscription.unsubscribe();
+    this.pauseTimer();
   }
 
   public selectItem(row: Site) {
     this.router.navigate(['/site', row.id]);
     console.log('row', row);
+  }
+
+  private startTimer() {
+    this.interval = setInterval(async () => {
+      await this.updateSites();
+    }, this.checkStatusesIntervalInMs)
+  }
+
+  private async updateSites() {
+    try {
+      this.sitesList = await this.apiService.allSites();
+    }
+    catch (error) {
+      console.error(error);
+      this.pauseTimer();
+      this.error = error.message;
+      this.isError = true;
+    }
+  }
+
+  private pauseTimer() {
+    clearInterval(this.interval);
   }
 }

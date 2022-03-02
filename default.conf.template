@@ -1,6 +1,6 @@
 server {
   listen $PORT default_server;
-  server_name rss-ui.herokuapp.com;
+  server_name www.mordor-sites-status.info;
 
   location / {
     root   /usr/share/nginx/html;

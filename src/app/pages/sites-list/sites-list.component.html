@@ -34,7 +34,9 @@
 
         <ng-container matColumnDef="uptime">
             <th mat-header-cell *matHeaderCellDef mat-sort-header> Uptime </th>
-            <td mat-cell *matCellDef="let element" matTooltip="Time of availability for the last day" matTooltipShowDelay="1000"> {{element.uptime}} %</td>
+            <td mat-cell *matCellDef="let element" matTooltip="Time of availability for the last day" matTooltipShowDelay="500">
+                {{ element.uptime | number: '1.0-0' }} %
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

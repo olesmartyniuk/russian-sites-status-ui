@@ -13,14 +13,14 @@
                 <mat-chip>
                     {{site.status}}
                 </mat-chip>
-                <small><a target="_blank" href="https://russian-sites-status-api.herokuapp.com/api/status/{{site.id}}">json</a></small>
+                <small><a target="_blank" href="https://russian-sites-status-api.herokuapp.com/api/sites/{{site.id}}">json</a></small>
             </div>
         </mat-card-title>
         <mat-card-content>
             <button type="button" mat-raised-button (click)="back()" class="backButton">
                 Return
             </button>
-            <span>Uptime for the last day: {{ site.uptime }}%</span>
+            <span>Uptime for the last day: {{ site.uptime | number: '1.0-0' }}%</span>
         </mat-card-content>
     </mat-card>
 
@@ -39,8 +39,7 @@
                     <th mat-header-cell *matHeaderCellDef> Status </th>
                     <td mat-cell *matCellDef="let element">
                         <mat-chip-list>
-                            <div *ngIf="element && element.status" style="content: none;"
-                                class="{{ visual.getColorStyleForStatusChip(element.status) }}">
+                            <div *ngIf="element && element.status" style="content: none;" class="{{ visual.getColorStyleForStatusChip(element.status) }}">
                                 <mat-chip>
                                     {{element.status}}
                                 </mat-chip>

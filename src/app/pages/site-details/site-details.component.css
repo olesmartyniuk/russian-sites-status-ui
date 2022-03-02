@@ -1,39 +1,32 @@
-.site .serverListTable
-{
-width: 100%;
+.site .serverListTable {
+    width: 100%;
 }
 
-.site .mat-card
-{
+.site .mat-card {
     margin-top: 20px;
     margin-bottom: 20px;
     box-shadow: none;
 }
 
-.site .serverListTable th
-{
-font-weight: bold;
+.site .serverListTable th {
+    font-weight: bold;
 }
 
-.site .mat-badge-content
-{
+.site .mat-badge-content {
     width: 45px;
 }
 
-.site .backButton
-{
+.site .backButton {
     float: right;
     margin-top: -40px;
     width: 120px;
 }
 
-.site .titleCard a
-{
+.site .titleCard a {
     margin-left: 15px;
 }
 
-.site .titleCard mat-chip
-{
+.site .titleCard mat-chip {
     margin-left: 10px;
     width: 50px;
     justify-content: center;

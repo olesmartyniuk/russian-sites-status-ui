@@ -32,7 +32,14 @@
             <table *ngIf="site && site.servers" mat-table [dataSource]="site.servers" class='serverListTable'>
                 <ng-container matColumnDef="region">
                     <th mat-header-cell *matHeaderCellDef> Region </th>
-                    <td mat-cell *matCellDef="let element"> {{element.region}} </td>
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element.regionCode == 'novosibirsk'">
+                            <b>{{element.region}}</b>
+                        </div>
+                        <div *ngIf="element.regionCode != 'novosibirsk'">
+                            {{element.region}}
+                        </div>
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">

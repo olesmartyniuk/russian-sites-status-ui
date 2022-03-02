@@ -30,7 +30,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
     await this.updateSites();
     this.startTimer();
     this.sitesList.filterPredicate = function(data, filter: string): boolean {
-      return data.name.toString().toLowerCase().includes(filter)
+      return data.name.toString().toLowerCase().includes(filter);
     };
   }
 

@@ -6,19 +6,19 @@ import { Site, SiteDetails } from '../models/site';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl: string = 'https://russian-sites-status-api.herokuapp.com/api/';
+  private baseUrl: string = 'https://russian-sites-status-api.herokuapp.com/api';
 
   constructor(private http: HttpClient) { }
 
   public async allSites(): Promise<Site[]> {
     return this.http
-      .get<Site[]>(this.baseUrl + 'status')
+      .get<Site[]>(this.baseUrl + '/sites')
       .toPromise();
   }
 
   public async siteDetails(siteId: string): Promise<SiteDetails>{
     return this.http
-      .get<SiteDetails>(this.baseUrl + 'status/' + siteId)
+      .get<SiteDetails>(this.baseUrl + '/sites/' + siteId)
       .toPromise();
   }
 }

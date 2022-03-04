@@ -57,11 +57,6 @@ export class SitesListComponent implements OnInit, OnDestroy {
     this.router.navigate(['/site', row.id]);
   }
 
-  public searchTextClear() {
-    this.searchText = '';
-    this.filterSitesList();
-  }
-
   public filterSitesList() {
 
     let searchText = '';
@@ -83,7 +78,6 @@ export class SitesListComponent implements OnInit, OnDestroy {
     }
 
     this.sitesList.filter = JSON.stringify(filter);
-    console.warn(this.sitesList.filter);
   }
 
   private startTimer() {

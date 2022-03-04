@@ -1,40 +1,25 @@
-.siteListComponent
-{
+.siteListComponent {
     margin-bottom: 20px;
 }
 
-.siteListComponent table
-{
- width: 100%;
- 
+.siteListComponent table {
+    width: 100%;
 }
 
-.siteListComponent table tr
-{
- cursor: pointer;
- 
+.siteListComponent table tr {
+    cursor: pointer;
 }
 
-.siteListComponent table th
-{
+.siteListComponent table th {
     font-weight: bold;
 }
 
-.siteListComponent .siteName
-{
+.siteListComponent .siteName {
     font-weight: bold;
 }
 
-.siteListComponent mat-chip
-{
-  width: 50px;
-  display: flex;
-  justify-content: center;
-}
-
-.search-site
-{
- width: 30%;
- margin-left: auto; 
- margin-right: 0; 
+.siteListComponent mat-chip {
+    width: 50px;
+    display: flex;
+    justify-content: center;
 }

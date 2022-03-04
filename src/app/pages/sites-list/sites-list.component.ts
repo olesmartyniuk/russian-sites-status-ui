@@ -3,8 +3,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
 import { Router } from '@angular/router';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'rss-sites-list',
@@ -19,18 +19,27 @@ export class SitesListComponent implements OnInit, OnDestroy {
   public error: string = null;
   public displayedColumns: string[] = ['name', 'status', 'uptime'];
 
+  public statusFilter = 'No filter';
+  public searchText = '';
+  public statusFilterOptions = ['No filter', 'Only Up', 'Only Down'];
+
   private interval: any;
 
   constructor(
     public visual: VisualService,
     private apiService: ApiService,
-    private router: Router,) { }
+    private router: Router) { }
 
   async ngOnInit() {
     await this.updateSites();
+    
     this.startTimer();
-    this.sitesList.filterPredicate = function(data, filter: string): boolean {
-      return data.name.toString().toLowerCase().includes(filter);
+    
+    this.sitesList.filterPredicate = function (data, filter: string): boolean {      
+      let fltr: Filter = JSON.parse(filter);            
+      let filterByText = data.name.toString().toLowerCase().includes(fltr.searchText);
+      let filterByStatus = data.status.toString().toLowerCase().includes(fltr.status);
+      return filterByText && filterByStatus;
     };
   }
 
@@ -46,6 +55,35 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   public selectItem(row: Site) {
     this.router.navigate(['/site', row.id]);
+  }
+
+  public searchTextClear() {
+    this.searchText = '';
+    this.filterSitesList();
+  }
+
+  public filterSitesList() {
+
+    let searchText = '';
+    if (!this.searchText || this.searchText.length < 2)
+      searchText = '';
+    else
+      searchText = this.searchText.trim().toLowerCase();
+
+    let status = '';
+    switch (this.statusFilter) {
+      case 'No filter': status = ''; break;
+      case 'Only Up': status = 'up'; break;
+      case 'Only Down': status = 'down'; break;
+    }  
+
+    let filter: Filter = {
+      status: status,
+      searchText: searchText
+    }
+
+    this.sitesList.filter = JSON.stringify(filter);
+    console.warn(this.sitesList.filter);
   }
 
   private startTimer() {
@@ -69,12 +107,9 @@ export class SitesListComponent implements OnInit, OnDestroy {
   private pauseTimer() {
     clearInterval(this.interval);
   }
+}
 
-  applyFilter(filterValue: any) {
-    let value = filterValue.target.value
-    if(!value || value.length < 2)
-      this.sitesList.filter = "";
-    else
-      this.sitesList.filter = filterValue.target.value.trim().toLowerCase();
-  }
+class Filter {
+  public searchText: string;
+  public status: string;
 }

@@ -28,6 +28,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .upDownStyle .mat-badge-content,
 .upDownStyle .mat-chip
 {
-  background-color: yellow;
-  color: black;
+  background-color: gray;
+  color: white;
 }

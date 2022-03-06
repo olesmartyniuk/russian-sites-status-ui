@@ -20,8 +20,10 @@ export class VisualService {
     }
 
     public getColorStyleForStatusChip(status: string) {
-        if (status == 'up')
-            return "upStyle";
-        return "downStyle";
+      if (status == 'up')
+        return "upStyle";
+      if (status == 'none')
+        return "upDownStyle";
+      return "downStyle";
     }
 }

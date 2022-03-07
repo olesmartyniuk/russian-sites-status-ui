@@ -22,6 +22,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 import { AboutComponent } from './pages/about/about.component';
 import {MatPaginatorModule} from "@angular/material/paginator";
+import { NgmatTableQueryReflectorModule } from '@nghacks/ngmat-table-query-reflector';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -60,7 +61,8 @@ const appRoutes: Routes = [
     MatTooltipModule,
     MatSortModule,
     MatGridListModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    NgmatTableQueryReflectorModule
   ],
   providers: [
     {

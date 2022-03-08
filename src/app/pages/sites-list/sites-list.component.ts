@@ -14,7 +14,7 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class SitesListComponent implements OnInit, OnDestroy {
 
-  readonly checkStatusesIntervalInMs = 30000;
+  readonly checkStatusesIntervalInMs = 60000;
   public sitesList = new MatTableDataSource([] as Site[]);
   public isError: boolean = false;
   public error: string = null;

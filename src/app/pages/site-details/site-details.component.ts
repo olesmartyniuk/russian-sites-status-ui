@@ -13,7 +13,7 @@ import * as moment from 'moment';
 })
 export class SiteDetailsComponent implements OnInit, OnDestroy {
 
-  readonly checkStatusesIntervalInMs = 30000;
+  readonly checkStatusesIntervalInMs = 60000;
 
   public site: SiteDetails;
   public isError: boolean = false;

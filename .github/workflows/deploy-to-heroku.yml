@@ -1,4 +1,4 @@
-name: Deploy to Heroku Dev
+name: Deploy UI
 
 on:
   push:
@@ -20,8 +20,8 @@ jobs:
     - name: Build and push
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:push -a dev-mss-ui web 
+      run: heroku container:push -a prod-mss-ui web 
     - name: Release
       env:
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-      run: heroku container:release -a dev-mss-ui web 
+      run: heroku container:release -a prod-mss-ui web 

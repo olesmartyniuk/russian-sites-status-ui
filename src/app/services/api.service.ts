@@ -6,7 +6,7 @@ import { Site, SiteDetails } from '../models/site';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl: string = 'https://dev-russian-sites-status-api.herokuapp.com/api';
+  private baseUrl: string = 'https://dev-mss-api.herokuapp.com/api';
 
   constructor(private http: HttpClient) { }
 

@@ -5,6 +5,7 @@ import { Site } from 'src/app/models/site';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'rss-sites-list',
@@ -13,7 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class SitesListComponent implements OnInit, OnDestroy {
 
-  readonly checkStatusesIntervalInMs = 30000;
+  readonly checkStatusesIntervalInMs = 60000;
   public sitesList = new MatTableDataSource([] as Site[]);
   public isError: boolean = false;
   public error: string = null;
@@ -21,7 +22,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   public statusFilter = 'No filter';
   public searchText = '';
-  public statusFilterOptions = ['No filter', 'Only Up', 'Only Down'];
+  public statusFilterOptions = ['No filter', 'Only Up', 'Only Down', 'None'];
 
   private interval: any;
 
@@ -30,13 +31,14 @@ export class SitesListComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private router: Router) { }
 
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   async ngOnInit() {
     await this.updateSites();
-    
+
     this.startTimer();
-    
-    this.sitesList.filterPredicate = function (data, filter: string): boolean {      
-      let fltr: Filter = JSON.parse(filter);            
+
+    this.sitesList.filterPredicate = function (data, filter: string): boolean {
+      let fltr: Filter = JSON.parse(filter);
       let filterByText = data.name.toString().toLowerCase().includes(fltr.searchText);
       let filterByStatus = data.status.toString().toLowerCase().includes(fltr.status);
       return filterByText && filterByStatus;
@@ -50,6 +52,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
   @ViewChild(MatSort) sort: MatSort;
 
   ngAfterViewInit() {
+    this.sitesList.paginator = this.paginator;
     this.sitesList.sort = this.sort;
   }
 
@@ -70,7 +73,8 @@ export class SitesListComponent implements OnInit, OnDestroy {
       case 'No filter': status = ''; break;
       case 'Only Up': status = 'up'; break;
       case 'Only Down': status = 'down'; break;
-    }  
+      case 'None': status = 'none'; break;
+    }
 
     let filter: Filter = {
       status: status,

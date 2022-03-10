@@ -4,7 +4,6 @@ import { VisualService } from 'src/app/services/visual.service';
 import { SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
-import { Moment } from "moment";
 import * as moment from 'moment';
 
 @Component({
@@ -14,7 +13,7 @@ import * as moment from 'moment';
 })
 export class SiteDetailsComponent implements OnInit, OnDestroy {
 
-  readonly checkStatusesIntervalInMs = 30000;
+  readonly checkStatusesIntervalInMs = 60000;
 
   public site: SiteDetails;
   public isError: boolean = false;
@@ -51,9 +50,9 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
 
     if (moment.utc(lastDate).isAfter(minDate)) {
       return moment(lastDate).fromNow();
-    }    
-    
-    return '-';    
+    }
+
+    return '-';
   }
 
   private startTimer() {

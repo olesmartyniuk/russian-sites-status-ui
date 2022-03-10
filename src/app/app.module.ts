@@ -21,6 +21,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
 
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 import { AboutComponent } from './pages/about/about.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
+import { NgmatTableQueryReflectorModule } from '@nghacks/ngmat-table-query-reflector';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -30,7 +32,7 @@ const appRoutes: Routes = [
   { path: '', redirectTo: 'sites', pathMatch: 'full' },
   { path: 'sites', component: SitesListComponent },
   { path: 'site/:siteId', component: SiteDetailsComponent },
-  { path: 'about', component: AboutComponent },  
+  { path: 'about', component: AboutComponent },
   { path: '**', component: NotFoundComponent }
 ];
 
@@ -58,7 +60,9 @@ const appRoutes: Routes = [
     MatButtonModule,
     MatTooltipModule,
     MatSortModule,
-    MatGridListModule
+    MatGridListModule,
+    MatPaginatorModule,
+    NgmatTableQueryReflectorModule
   ],
   providers: [
     {

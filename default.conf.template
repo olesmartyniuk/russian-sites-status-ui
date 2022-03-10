@@ -1,6 +1,6 @@
 server {
   listen $PORT default_server;
-  server_name www.mordor-sites-status.info;
+  server_name dev-russian-sites-status-api.herokuapp.com;
 
   location / {
     root   /usr/share/nginx/html;

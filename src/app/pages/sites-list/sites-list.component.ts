@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'rss-sites-list',
@@ -30,13 +30,20 @@ export class SitesListComponent implements OnInit, OnDestroy {
   constructor(
     public visual: VisualService,
     private apiService: ApiService,
-    private router: Router) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   async ngOnInit() {
     this.calculatePageSize();
-
+    const status = this.getStatusQuery();
     await this.updateSites();
+
+    if (status) {
+      this.sitesList.paginator.pageSize = status.pageSize;
+      this.sitesList.paginator.pageIndex = status.pageIndex;
+    }
 
     this.startTimer();
 
@@ -46,8 +53,13 @@ export class SitesListComponent implements OnInit, OnDestroy {
       let filterByStatus = data.status.toString().toLowerCase().includes(fltr.status);
       return filterByText && filterByStatus;
     };
-  }
 
+    if (status) {
+      this.searchText = status.search;
+      this.statusFilter = status.status;
+      this.filterSitesList();
+    }
+  }
 
   ngOnDestroy() {
     this.pauseTimer();
@@ -86,6 +98,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
     }
 
     this.sitesList.filter = JSON.stringify(filter);
+    this.router.navigate([], { queryParams: {status: this.statusFilter, search: this.searchText }, queryParamsHandling: 'merge' });
   }
 
   private startTimer() {
@@ -123,6 +136,20 @@ export class SitesListComponent implements OnInit, OnDestroy {
     } else {
       this.pageSize = 20;
     }
+  }
+
+  private getStatusQuery(): { status: string, search: string, pageSize: number, pageIndex: number } {
+    const queryParams = this.activatedRoute.snapshot.queryParams;
+    if (queryParams.hasOwnProperty('status') || queryParams.hasOwnProperty('search') || queryParams.hasOwnProperty('page_size')) {
+      return {
+        status: queryParams.status ?? '',
+        search: queryParams.search,
+        pageSize: queryParams.page_size,
+        pageIndex: queryParams.page_index
+      };
+    }
+
+    return;
   }
 }
 

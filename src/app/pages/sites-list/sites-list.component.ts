@@ -5,7 +5,7 @@ import { Site } from 'src/app/models/site';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import {MatPaginator} from '@angular/material/paginator';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'rss-sites-list',
@@ -23,6 +23,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
   public statusFilter = 'No filter';
   public searchText = '';
   public statusFilterOptions = ['No filter', 'Only Up', 'Only Down', 'None'];
+  public pageSize: number = 20;
 
   private interval: any;
 
@@ -33,6 +34,8 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   async ngOnInit() {
+    this.calculatePageSize();
+
     await this.updateSites();
 
     this.startTimer();
@@ -44,6 +47,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
       return filterByText && filterByStatus;
     };
   }
+
 
   ngOnDestroy() {
     this.pauseTimer();
@@ -104,6 +108,21 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   private pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  private calculatePageSize() {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    const isMobile = /iPhone|Android/i.test(navigator.userAgent);
+    const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+
+    if (isMobile) {
+      this.pageSize = 10;
+    } else if (isTablet) {
+      this.pageSize = 15;
+    } else {
+      this.pageSize = 20;
+    }
   }
 }
 

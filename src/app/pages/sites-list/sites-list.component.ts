@@ -35,14 +35,14 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  async ngOnInit() {
-    this.calculatePageSize();
+  async ngOnInit() {    
     const status = this.getStatusQuery();
     await this.updateSites();
 
     if (status) {
       this.sitesList.paginator.pageSize = status.pageSize;
       this.sitesList.paginator.pageIndex = status.pageIndex;
+      this.pageSize = status.pageSize;
     }
 
     this.startTimer();
@@ -123,18 +123,18 @@ export class SitesListComponent implements OnInit, OnDestroy {
     clearInterval(this.interval);
   }
 
-  private calculatePageSize() {
+  private calculatePageSize(): number {
     const userAgent = navigator.userAgent.toLowerCase();
 
     const isMobile = /iPhone|Android/i.test(navigator.userAgent);
     const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
 
     if (isMobile) {
-      this.pageSize = 10;
+      return 10;
     } else if (isTablet) {
-      this.pageSize = 15;
+      return 15;
     } else {
-      this.pageSize = 20;
+      return 20;
     }
   }
 
@@ -144,7 +144,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
       return {
         status: queryParams.status ?? '',
         search: queryParams.search,
-        pageSize: queryParams.page_size,
+        pageSize: queryParams.page_size ?? this.calculatePageSize(),
         pageIndex: queryParams.page_index
       };
     }

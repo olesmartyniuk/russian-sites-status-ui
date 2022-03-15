@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <url><loc>http://www.mordor-sites-status.info/sites</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>1.0</priority></url>
-<url><loc>http://www.mordor-sites-status.info/sites?status=Only%20Up&search=</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>0.9</priority></url>
-<url><loc>http://www.mordor-sites-status.info/sites?status=Only%20Down&search=</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>0.9</priority></url>
-<url><loc>http://www.mordor-sites-status.info/sites?status=None&search=</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>0.9</priority></url>
+<url><loc>http://www.mordor-sites-status.info/sites?status=Only%20Up&amp;search=</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>0.9</priority></url>
+<url><loc>http://www.mordor-sites-status.info/sites?status=Only%20Down&amp;search=</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>0.9</priority></url>
+<url><loc>http://www.mordor-sites-status.info/sites?status=None&amp;search=</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>always</changefreq><priority>0.9</priority></url>
 <url><loc>http://www.mordor-sites-status.info/about</loc><lastmod>2022-03-14T00:56:04+00:00</lastmod><changefreq>never</changefreq><priority>0.4</priority></url>
 </urlset>

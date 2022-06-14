@@ -1,6 +1,6 @@
 ﻿# Статус рашистських сайтів
 
-Вебсайт показує поточний статус російських сайтів. Моніторинг відбувається кожні 300 сек з багатьох країн світу, включаючи росію (новосибірськ), за протоколом HTTP. 
+Вебсайт показує поточний статус російських сайтів. Моніторинг відбувається кожні 300 сек з багатьох країн світу, включаючи росію (новосибірськ), за протоколом HTTP.
 
 Це фронтенд частина для [Russian Sites Status API](https://github.com/olesmartyniuk/russian-sites-status-api), написана на TypeScript та [Angular 12](https://angular.io/).
 
@@ -8,20 +8,22 @@
 
 Для роботи вам необхідно:
 
-1. Встановити [NodeJS 16.15](https://nodejs.org/uk/blog/release/v16.15.0/)](https://nodejs.org/de/blog/release/v14.16.0/)
+1. Встановити [NodeJS 16.15](https://nodejs.org/uk/blog/release/v16.15.0/)
 2. Встановити TypeScript `npm install -g typescript`
 3. Встановити Angular CLI `npm install -g @angular/cli`
-2. Встановити [Git](https://git-scm.com/) 
-3. Клонувати репозиторій командою 
+4. Встановити [Git](https://git-scm.com/)
+5. Клонувати репозиторій командою
 
 `git clone https://github.com/olesmartyniuk/russian-sites-status-ui.git`
 
 Для запуску веб програми локально виконайте наступні команди в склонованому репозиторії:
+
 1. `npm install`
 2. `npm start`
 
 Ви повинні побачити наступне повідомлення, що свідчить про успішну компіляцію та запуск проєкту:
-```
+
+```Powershell
 ** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
 : Compiled successfully.
 ```

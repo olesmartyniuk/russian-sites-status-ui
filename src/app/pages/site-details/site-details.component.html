@@ -13,7 +13,7 @@
                 <mat-chip>
                     {{site.status}}
                 </mat-chip>
-                <small><a target="_blank" href="https://dev-russian-sites-status-api.herokuapp.com/api/sites/{{site.id}}">json</a></small>
+                <small><a target="_blank" href="https://api.mordor-sites-status.info/api/sites/{{site.id}}">json</a></small>
             </div>
         </mat-card-title>
         <mat-card-content>
@@ -58,7 +58,7 @@
                 <ng-container matColumnDef="lastTestedAt">
                     <th mat-header-cell *matHeaderCellDef> Checked </th>
                     <td mat-cell *matCellDef="let element">
-                        {{getReadableTime(element.lastTestedAt)}}
+                        {{getReadableTime(site.lastTestedAt)}}
                     </td>
                 </ng-container>
 

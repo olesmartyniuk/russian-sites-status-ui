@@ -14,7 +14,7 @@ import { StatisticVm as Statistic } from 'src/app/models/statistic';
 })
 export class SiteDetailsComponent implements OnInit, OnDestroy {
 
-  readonly checkStatusesIntervalInMs = 30000;
+  readonly checkStatusesIntervalInMs = 60000;
 
   public site: SiteDetails;
   public isError: boolean = false;
@@ -137,5 +137,4 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
       }));
     console.log(this.chartData);
   }
-
 }

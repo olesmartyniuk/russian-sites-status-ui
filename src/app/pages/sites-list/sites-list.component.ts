@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
 import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
@@ -14,7 +14,7 @@ import {MatPaginator} from '@angular/material/paginator';
 })
 export class SitesListComponent implements OnInit, OnDestroy {
 
-  readonly checkStatusesIntervalInMs = 30000;
+  readonly checkStatusesIntervalInMs = 60000;
   public sitesList = new MatTableDataSource([] as Site[]);
   public isError: boolean = false;
   public error: string = null;
@@ -23,17 +23,27 @@ export class SitesListComponent implements OnInit, OnDestroy {
   public statusFilter = 'No filter';
   public searchText = '';
   public statusFilterOptions = ['No filter', 'Only Up', 'Only Down', 'None'];
+  public pageSize: number = 20;
 
   private interval: any;
 
   constructor(
     public visual: VisualService,
     private apiService: ApiService,
-    private router: Router) { }
+    private router: Router,
+    private activatedRoute: ActivatedRoute) { }
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  async ngOnInit() {
+  async ngOnInit() {    
+    const status = this.getStatusQuery();
     await this.updateSites();
+
+    if (status) {
+      this.sitesList.paginator.pageSize = status.pageSize;
+      this.sitesList.paginator.pageIndex = status.pageIndex;
+      this.pageSize = status.pageSize;
+    }
 
     this.startTimer();
 
@@ -43,6 +53,12 @@ export class SitesListComponent implements OnInit, OnDestroy {
       let filterByStatus = data.status.toString().toLowerCase().includes(fltr.status);
       return filterByText && filterByStatus;
     };
+
+    if (status) {
+      this.searchText = status.search;
+      this.statusFilter = status.status;
+      this.filterSitesList();
+    }
   }
 
   ngOnDestroy() {
@@ -82,6 +98,7 @@ export class SitesListComponent implements OnInit, OnDestroy {
     }
 
     this.sitesList.filter = JSON.stringify(filter);
+    this.router.navigate([], { queryParams: {status: this.statusFilter, search: this.searchText }, queryParamsHandling: 'merge' });
   }
 
   private startTimer() {
@@ -104,6 +121,35 @@ export class SitesListComponent implements OnInit, OnDestroy {
 
   private pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  private calculatePageSize(): number {
+    const userAgent = navigator.userAgent.toLowerCase();
+
+    const isMobile = /iPhone|Android/i.test(navigator.userAgent);
+    const isTablet = /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(userAgent);
+
+    if (isMobile) {
+      return 10;
+    } else if (isTablet) {
+      return 15;
+    } else {
+      return 20;
+    }
+  }
+
+  private getStatusQuery(): { status: string, search: string, pageSize: number, pageIndex: number } {
+    const queryParams = this.activatedRoute.snapshot.queryParams;
+    if (queryParams.hasOwnProperty('status') || queryParams.hasOwnProperty('search') || queryParams.hasOwnProperty('page_size')) {
+      return {
+        status: queryParams.status ?? '',
+        search: queryParams.search,
+        pageSize: queryParams.page_size ?? this.calculatePageSize(),
+        pageIndex: queryParams.page_index
+      };
+    }
+
+    return;
   }
 }
 

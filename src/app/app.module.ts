@@ -17,11 +17,12 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSortModule } from '@angular/material/sort';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { SiteDetailsComponent } from './pages/site-details/site-details.component';
 import { AboutComponent } from './pages/about/about.component';
-import {MatPaginatorModule} from "@angular/material/paginator";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgmatTableQueryReflectorModule } from '@nghacks/ngmat-table-query-reflector';
 
 export function appInit(appInitService: AppInitService) {
@@ -62,6 +63,7 @@ const appRoutes: Routes = [
     MatSortModule,
     MatGridListModule,
     MatPaginatorModule,
+    NgxChartsModule,
     NgmatTableQueryReflectorModule
   ],
   providers: [

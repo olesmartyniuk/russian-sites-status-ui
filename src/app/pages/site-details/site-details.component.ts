@@ -5,6 +5,7 @@ import { SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
 import * as moment from 'moment';
+import { StatisticVm as Statistic } from 'src/app/models/statistic';
 
 @Component({
   selector: 'rss-site-details',
@@ -23,6 +24,31 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   private interval: any;
   private siteId: string;
 
+  chartData: any[];
+  view: any[] = [];
+
+  // options
+  showXAxis: boolean = true;
+  showYAxis: boolean = false;
+  gradient: boolean = false;
+  showLegend: boolean = false;
+  showXAxisLabel: boolean = false;
+  xAxisLabel: string = 'Country';
+  showYAxisLabel: boolean = true;
+  yAxisLabel: string = 'Population';
+  animations: boolean = true;
+  showDataLabel: boolean = false;
+
+  colorScheme = {
+    domain: ['#E30000', '#008000', '#717171']
+  };
+
+  statistics: Statistic;
+
+  onSelect(event) {
+    console.log(event);
+  }
+
   constructor(
     public visual: VisualService,
     private route: ActivatedRoute,
@@ -34,6 +60,8 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
     this.siteId = this.route.snapshot.paramMap.get('siteId');
 
     await this.updateSiteInfo();
+    await this.updateStatistics(null);
+
     this.startTimer();
   }
 
@@ -53,6 +81,10 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
     }
 
     return '-';
+  }
+
+  public async periodClick(url: string) {
+    await this.updateStatistics(url);
   }
 
   private startTimer() {
@@ -75,5 +107,34 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
       this.error = error.message;
       this.isError = true;
     }
+  }
+
+  private async updateStatistics(url: string) {
+    if (url === null) {
+      this.statistics = await this.apiService.siteStatisticsDefault(this.siteId);
+    } else {
+      this.statistics = await this.apiService.siteStatistics(url);
+    }
+    console.log(this.statistics);
+
+    this.chartData = this.statistics.data
+      .map(item => ({
+        name: item.label,
+        series: [
+          {
+            name: 'down',
+            value: item.down
+          },
+          {
+            name: 'up',
+            value: item.up
+          },
+          {
+            name: 'unknown',
+            value: item.unknown
+          }
+        ]
+      }));
+    console.log(this.chartData);
   }
 }

@@ -7,7 +7,7 @@ import { StatisticVm } from '../models/statistic';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl: string = 'https://api.mordor-sites-status.info/api';
+  private baseUrl: string = 'https://api.mordor-sites-status.info/';
 
   constructor(private http: HttpClient) { }
 

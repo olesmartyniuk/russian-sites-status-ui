@@ -1,14 +1,14 @@
 ﻿# Статус рашистських сайтів
 
-Вебсайт показує поточний статус російських сайтів. Моніторинг відбувається кожні 60 сек з багатьох країн світу, включаючи росію (новосибірськ), за протоколом HTTP. 
+Вебсайт показує поточний статус російських сайтів. Моніторинг відбувається кожні 300 сек з багатьох країн світу, включаючи росію (новосибірськ), за протоколом HTTP. 
 
-Це фронтенд частина для [Russian Sites Status API](https://github.com/olesmartyniuk/russian-sites-status-api), написана на TypeScript та [Angular 10](https://angular.io/).
+Це фронтенд частина для [Russian Sites Status API](https://github.com/olesmartyniuk/russian-sites-status-api), написана на TypeScript та [Angular 12](https://angular.io/).
 
 ## Початок роботи
 
 Для роботи вам необхідно:
 
-1. Встановити [NodeJS 14.16](https://nodejs.org/de/blog/release/v14.16.0/)
+1. Встановити [NodeJS 16.15](https://nodejs.org/uk/blog/release/v16.15.0/)](https://nodejs.org/de/blog/release/v14.16.0/)
 2. Встановити TypeScript `npm install -g typescript`
 3. Встановити Angular CLI `npm install -g @angular/cli`
 2. Встановити [Git](https://git-scm.com/) 

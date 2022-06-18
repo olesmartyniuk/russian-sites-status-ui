@@ -24,6 +24,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgmatTableQueryReflectorModule } from '@nghacks/ngmat-table-query-reflector';
+import { SiteStatisticComponent } from './pages/site-details/site-statistic/site-statistic.component';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
     AppComponent,
     SitesListComponent,
     NotFoundComponent,
-    SiteDetailsComponent
+    SiteDetailsComponent,
+    SiteStatisticComponent
   ],
   imports: [
     BrowserModule,

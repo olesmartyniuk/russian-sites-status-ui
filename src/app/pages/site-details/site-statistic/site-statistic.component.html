@@ -1,0 +1,48 @@
+<div *ngIf="statistics" class="container">
+    <div class="row">
+        <div class="col-6">
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let period of statistics.periods" class="col-3">
+                        <button type="button" mat-raised-button (click)="periodClick(period.url)">
+                            <div [ngClass]="{'button-current': period.current}">
+                                {{ period.name }}
+                            </div>                                  
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.prev.url)">
+                            <div>
+                                {{ statistics.navigation.prev.name }}
+                            </div>                                  
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.current.url)">
+                            <div class="button-current">
+                                {{ statistics.navigation.current.name }}
+                            </div>                                  
+                        </button>
+                    </div>
+                    <div class="col-3">
+                        <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.next.url)">
+                            <div>
+                                {{ statistics.navigation.next.name }}
+                            </div>                                  
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorScheme" [results]="chartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+    [yAxisLabel]="yAxisLabel" [animations]="animations" [showDataLabel]="showDataLabel" (select)="onSelect($event)">
+</ngx-charts-bar-vertical-stacked>

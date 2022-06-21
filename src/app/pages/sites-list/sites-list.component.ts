@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { VisualService } from 'src/app/services/visual.service';
 import { Site } from 'src/app/models/site';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
@@ -28,7 +27,6 @@ export class SitesListComponent implements OnInit, OnDestroy {
   private interval: any;
 
   constructor(
-    public visual: VisualService,
     private apiService: ApiService,
     private router: Router,
     private activatedRoute: ActivatedRoute) { }

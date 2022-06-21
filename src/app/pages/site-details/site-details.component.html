@@ -8,19 +8,19 @@
 <div *ngIf="!isError" class="site">
     <mat-card class="description" *ngIf="site">
         <mat-card-title>
-            <div class="{{ visual.getColorStyleForStatusChip(site.status) }} titleCard">
-                {{ site.name }}
-                <mat-chip>
-                    {{site.status}}
-                </mat-chip>
-                <small><a target="_blank" href="https://api.mordor-sites-status.info/api/sites/{{site.id}}">json</a></small>
+            <div>
+                <a target="_blank" href="http://{{site.name}}" class="mr-2">{{ site.name }}</a>
+                <rss-status-badge [status]="site.status"></rss-status-badge>
+                <small>
+                    <a target="_blank" href="https://api.mordor-sites-status.info/api/sites/{{site.id}}" class="ml-2">json</a>
+                </small>
             </div>
         </mat-card-title>
         <mat-card-content>
             <button type="button" mat-raised-button (click)="back()" class="backButton">
                 Return
             </button>
-            <span>Uptime for the last day: {{ site.uptime | number: '1.0-0' }}%</span>
+            <span>Last checked {{ getReadableTime(site.lastTestedAt) }}</span>
         </mat-card-content>
     </mat-card>
 
@@ -32,33 +32,23 @@
             <table *ngIf="site && site.servers" mat-table [dataSource]="site.servers" class='serverListTable'>
                 <ng-container matColumnDef="region">
                     <th mat-header-cell *matHeaderCellDef> Region </th>
-                    <td mat-cell *matCellDef="let element">
-                        <div *ngIf="element.regionCode == 'novosibirsk'">
-                            <b>{{element.region}}</b>
-                        </div>
-                        <div *ngIf="element.regionCode != 'novosibirsk'">
-                            {{element.region}}
-                        </div>
+                    <td mat-cell *matCellDef="let server">
+                        {{ server.region }}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-chip-list>
-                            <div *ngIf="element && element.status" style="content: none;" class="{{ visual.getColorStyleForStatusChip(element.status) }}">
-                                <mat-chip>
-                                    {{element.status}}
-                                </mat-chip>
-                            </div>
-                        </mat-chip-list>
+                    <td mat-cell *matCellDef="let server">
+                        <rss-status-badge [status]="server.status">
+                        </rss-status-badge>
                     </td>
                 </ng-container>
 
-                <ng-container matColumnDef="lastTestedAt">
-                    <th mat-header-cell *matHeaderCellDef> Checked </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{getReadableTime(site.lastTestedAt)}}
+                <ng-container matColumnDef="time">
+                    <th mat-header-cell *matHeaderCellDef> Time / Error </th>
+                    <td mat-cell *matCellDef="let server">
+                        {{getTime(server)}}
                     </td>
                 </ng-container>
 
@@ -69,5 +59,5 @@
         </mat-card-content>
     </mat-card>
 
-    <app-site-statistic [siteId]="site.id"></app-site-statistic>
+    <app-site-statistic [siteId]="site.id" *ngIf="site"></app-site-statistic>
 </div>

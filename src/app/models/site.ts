@@ -13,6 +13,7 @@ export class SiteDetails extends Site {
 export class Server {
     region: string;
     regionCode: string;
+    spentTimeInSec: number;
     status: string;
     statusCode: number;
 }

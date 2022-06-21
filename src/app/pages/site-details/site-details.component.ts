@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { VisualService } from 'src/app/services/visual.service';
 import { Server, SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
@@ -24,7 +23,6 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   private siteId: string;
 
   constructor(
-    public visual: VisualService,
     private route: ActivatedRoute,
     private location: Location,
     private apiService: ApiService

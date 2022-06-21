@@ -8,11 +8,9 @@
 <div *ngIf="!isError" class="site">
     <mat-card class="description" *ngIf="site">
         <mat-card-title>
-            <div class="{{ visual.getColorStyleForStatusChip(site.status) }}">
+            <div>
                 <a target="_blank" href="http://{{site.name}}" class="mr-2">{{ site.name }}</a>
-                <mat-chip>
-                    {{site.status}}
-                </mat-chip>
+                <rss-status-badge [status]="site.status"></rss-status-badge>
                 <small>
                     <a target="_blank" href="https://api.mordor-sites-status.info/api/sites/{{site.id}}" class="ml-2">json</a>
                 </small>
@@ -34,28 +32,23 @@
             <table *ngIf="site && site.servers" mat-table [dataSource]="site.servers" class='serverListTable'>
                 <ng-container matColumnDef="region">
                     <th mat-header-cell *matHeaderCellDef> Region </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{ element.region }}
+                    <td mat-cell *matCellDef="let server">
+                        {{ server.region }}
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="status">
                     <th mat-header-cell *matHeaderCellDef> Status </th>
-                    <td mat-cell *matCellDef="let element">
-                        <mat-chip-list>
-                            <div *ngIf="element && element.status" style="content: none;" class="{{ visual.getColorStyleForStatusChip(element.status) }}">
-                                <mat-chip>
-                                    {{ element.status }}
-                                </mat-chip>
-                            </div>
-                        </mat-chip-list>
+                    <td mat-cell *matCellDef="let server">
+                        <rss-status-badge [status]="server.status">
+                        </rss-status-badge>
                     </td>
                 </ng-container>
 
                 <ng-container matColumnDef="time">
                     <th mat-header-cell *matHeaderCellDef> Time / Error </th>
-                    <td mat-cell *matCellDef="let element">
-                        {{getTime(element)}}
+                    <td mat-cell *matCellDef="let server">
+                        {{getTime(server)}}
                     </td>
                 </ng-container>
 

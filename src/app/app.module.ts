@@ -24,7 +24,8 @@ import { AboutComponent } from './pages/about/about.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NgmatTableQueryReflectorModule } from '@nghacks/ngmat-table-query-reflector';
-import { SiteStatisticComponent } from './pages/site-details/site-statistic/site-statistic.component';
+import { SiteStatisticComponent } from './components/site-statistic/site-statistic.component';
+import { StatusBadgeComponent } from './components/status-badge/status-badge.component';
 
 export function appInit(appInitService: AppInitService) {
   return () => appInitService.Init();
@@ -44,7 +45,8 @@ const appRoutes: Routes = [
     SitesListComponent,
     NotFoundComponent,
     SiteDetailsComponent,
-    SiteStatisticComponent
+    SiteStatisticComponent,    
+    StatusBadgeComponent
   ],
   imports: [
     BrowserModule,

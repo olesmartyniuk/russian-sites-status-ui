@@ -72,6 +72,5 @@ export class SiteStatisticComponent implements OnInit {
           }
         ]
       }));
-    console.log(this.chartData);
   }
 }

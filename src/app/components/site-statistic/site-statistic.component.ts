@@ -11,30 +11,12 @@ export class SiteStatisticComponent implements OnInit {
 
   @Input() siteId: string = null; 
 
-  chartData: any[];
-  view: any[] = [];
-
-  // options
-  showXAxis: boolean = true;
-  showYAxis: boolean = false;
-  gradient: boolean = false;
-  showLegend: boolean = false;
-  showXAxisLabel: boolean = false;
-  xAxisLabel: string = 'Country';
-  showYAxisLabel: boolean = true;
-  yAxisLabel: string = 'Population';
-  animations: boolean = true;
-  showDataLabel: boolean = false;
-
+  chartData: any[];  
   colorScheme = {
-    domain: ['#E30000', '#008000', '#717171']
+    domain: ['red', 'green', 'grey']
   };
 
   statistics: Statistic;
-
-  onSelect(event) {
-    console.log(event);
-  }
 
   constructor(private apiService: ApiService) { }
 
@@ -52,7 +34,6 @@ export class SiteStatisticComponent implements OnInit {
     } else {
       this.statistics = await this.apiService.siteStatistics(url);
     }
-    console.log(this.statistics);
 
     this.chartData = this.statistics.data
       .map(item => ({

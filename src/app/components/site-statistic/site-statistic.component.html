@@ -24,11 +24,9 @@
                         </button>
                     </div>
                     <div class="col-3">
-                        <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.current.url)">
-                            <div class="button-current">
-                                {{ statistics.navigation.current.name }}
-                            </div>                                  
-                        </button>
+                        <div class="current">
+                            {{ statistics.navigation.current.name }}
+                        </div>
                     </div>
                     <div class="col-3">
                         <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.next.url)">
@@ -43,6 +41,9 @@
     </div>
 </div>
 
-<ngx-charts-bar-vertical-stacked [view]="view" [scheme]="colorScheme" [results]="chartData" [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-    [yAxisLabel]="yAxisLabel" [animations]="animations" [showDataLabel]="showDataLabel" (select)="onSelect($event)">
-</ngx-charts-bar-vertical-stacked>
+<div id="chart-parent">
+
+    <ngx-charts-bar-vertical-stacked [view]="" [scheme]="colorScheme" [results]="chartData" [xAxis]="true" [animations]="true">
+    </ngx-charts-bar-vertical-stacked>
+
+</div>

@@ -35,7 +35,7 @@ export class SiteStatisticComponent implements OnInit {
       this.statistics = await this.apiService.siteStatistics(url);
     }
 
-    this.chartData = this.statistics.data
+    this.chartData = this.statistics.data.history
       .map(item => ({
         name: item.label,
         series: [

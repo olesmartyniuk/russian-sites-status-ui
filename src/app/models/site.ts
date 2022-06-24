@@ -2,7 +2,6 @@ export class Site {
     id: number;
     name: string;
     status: string;
-    uptime: number;
 }
 
 export class SiteDetails extends Site {

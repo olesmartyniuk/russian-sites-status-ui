@@ -1,10 +1,15 @@
 export class StatisticVm {
     navigation: Navigation;
     periods: Period[];
-    data: DataItem[];
+    data: Data;
 }
 
-export class DataItem {
+export class Data {
+    uptime: number;
+    history: Span[];
+}
+
+export class Span {
     up: number;
     down: number;
     unknown: number;

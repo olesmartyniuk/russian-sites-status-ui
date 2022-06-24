@@ -1,49 +1,61 @@
-<div *ngIf="statistics" class="container">
-    <div class="row">
-        <div class="col-6">
-            <div class="container">
-                <div class="row">
-                    <div *ngFor="let period of statistics.periods" class="col-3">
-                        <button type="button" mat-raised-button (click)="periodClick(period.url)">
-                            <div [ngClass]="{'button-current': period.current}">
-                                {{ period.name }}
-                            </div>                                  
-                        </button>
-                    </div>
-                </div>
-            </div>
+<mat-card>
+    <mat-card-title>
+        <div *ngIf="statistics.data.uptime !== null">
+            Uptime - {{ statistics.data.uptime }}%
         </div>
-        <div class="col-6">
-            <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.prev.url)">
-                            <div>
-                                {{ statistics.navigation.prev.name }}
-                            </div>                                  
-                        </button>
-                    </div>
-                    <div class="col-3">
-                        <div class="current">
-                            {{ statistics.navigation.current.name }}
+        <div *ngIf="statistics.data.uptime === null">
+            Uptime unknown
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <div *ngIf="statistics" class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="container">
+                        <div class="row">
+                            <div *ngFor="let period of statistics.periods" class="col-3">
+                                <button type="button" mat-raised-button (click)="periodClick(period.url)">
+                                    <div [ngClass]="{'button-current': period.current}">
+                                        {{ period.name }}
+                                    </div>                                  
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-3">
-                        <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.next.url)">
-                            <div>
-                                {{ statistics.navigation.next.name }}
-                            </div>                                  
-                        </button>
+                </div>
+                <div class="col-6">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-3">
+                                <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.prev.url)">
+                                    <div>
+                                        {{ statistics.navigation.prev.name }}
+                                    </div>                                  
+                                </button>
+                            </div>
+                            <div class="col-3">
+                                <div class="current">
+                                    {{ statistics.navigation.current.name }}
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <button type="button" mat-raised-button (click)="periodClick(statistics.navigation.next.url)">
+                                    <div>
+                                        {{ statistics.navigation.next.name }}
+                                    </div>                                  
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
 
-<div id="chart-parent">
+        <div id="chart-parent">
 
-    <ngx-charts-bar-vertical-stacked [view]="" [scheme]="colorScheme" [results]="chartData" [xAxis]="true" [animations]="true">
-    </ngx-charts-bar-vertical-stacked>
+            <ngx-charts-bar-vertical-stacked [view]="" [scheme]="colorScheme" [results]="chartData" [xAxis]="true" [animations]="true">
+            </ngx-charts-bar-vertical-stacked>
 
-</div>
+        </div>
+    </mat-card-content>
+</mat-card>

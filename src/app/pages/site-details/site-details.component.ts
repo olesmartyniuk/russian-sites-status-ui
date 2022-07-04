@@ -56,7 +56,7 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
 
   public getTime(server: Server): string {
     if (server.status === 'up') {
-      if (server.spentTimeInSec == 0) {
+      if (server.spentTimeInSec === 0) {
         return '< 1 sec';
       }
       return `~ ${server.spentTimeInSec} sec`;

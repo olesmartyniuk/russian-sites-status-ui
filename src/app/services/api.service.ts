@@ -7,7 +7,7 @@ import { StatisticVm } from '../models/statistic';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl: string = 'https://dev-mss-api.herokuapp.com/';
+  private baseUrl: string = 'https://prod-mss-api.herokuapp.com/';
 
   constructor(private http: HttpClient) { }
 

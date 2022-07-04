@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/api.service';
-import { VisualService } from 'src/app/services/visual.service';
-import { SiteDetails } from 'src/app/models/site';
+import { Server, SiteDetails } from 'src/app/models/site';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common'
 import * as moment from 'moment';
@@ -18,13 +17,12 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
   public site: SiteDetails;
   public isError: boolean = false;
   public error: string = null;
-  public displayedColumns: string[] = ['region', 'status', 'lastTestedAt'];
+  public displayedColumns: string[] = ['region', 'status', 'time'];
 
   private interval: any;
   private siteId: string;
 
   constructor(
-    public visual: VisualService,
     private route: ActivatedRoute,
     private location: Location,
     private apiService: ApiService
@@ -34,6 +32,7 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
     this.siteId = this.route.snapshot.paramMap.get('siteId');
 
     await this.updateSiteInfo();
+
     this.startTimer();
   }
 
@@ -53,6 +52,34 @@ export class SiteDetailsComponent implements OnInit, OnDestroy {
     }
 
     return '-';
+  }
+
+  public getTime(server: Server): string {
+    if (server.status === 'up') {
+      if (server.spentTimeInSec === 0) {
+        return '< 1 sec';
+      }
+      return `~ ${server.spentTimeInSec} sec`;
+    }
+
+    switch (server.statusCode) {
+      case 0:
+        return `Timeout`;
+      case 403:
+        return `Forbidden ${server.statusCode}`;
+      case 404:
+        return `Not found ${server.statusCode}`;
+      case 500:
+        return `Site error ${server.statusCode}`;
+      case 504:
+        return `Gateway timeout ${server.statusCode}`;
+      case 301:
+        return `Redirect ${server.statusCode}`;
+      case 520:
+        return `Unknown ${server.statusCode}`;
+      default:
+        return `HTTP ${server.statusCode}`;
+    }
   }
 
   private startTimer() {
